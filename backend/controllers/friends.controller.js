@@ -28,22 +28,33 @@ export const addFriend = async (req, res) => {
 			return res.status(404).json({ error: "User not found" });
 		}
 
-		const existingFriend = await Friend.findOne({
+		const existingFriendForUser = await Friend.findOne({
 			userId,
 			friendId: friend._id,
 		});
 
-		if (existingFriend) {
-			return res.status(400).json({ error: "Friend already exists" });
+		const existingFriendForFriend = await Friend.findOne({
+			userId: friend._id,
+			friendId: userId,
+		});
+
+		if (existingFriendForUser || existingFriendForFriend) {
+			return res.status(400).json({ error: "Already Friends" });
 		}
 
-		const newFriend = new Friend({
+		const newFriendForUser = new Friend({
 			userId,
 			friendId: friend._id,
 		});
 
-		await newFriend.save();
-		res.status(201).json(newFriend);
+		const newFriendForFriend = new Friend({
+			userId: friend._id,
+			friendId: userId,
+		});
+
+		await Promise.all([newFriendForUser.save(), newFriendForFriend.save()]);
+
+		res.status(201).json({ message: "Friend added for both users" });
 	} catch (error) {
 		console.log("Error in addFriend controller: ", error.message);
 		res.status(500).json({ error: "Internal server error" });
