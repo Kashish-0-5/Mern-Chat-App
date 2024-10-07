@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
+import AddFriend from "./AddFriend.jsx";
 import useConversation from "../../store/useConversation.js";
-import useGetConversations from "../../hooks/useGetConversation.js";
 import toast from "react-hot-toast";
+import { useConversationsContext } from "../../context/ConversationContext.jsx";
 
 const SearchInput = () => {
 	const [search, setSearch] = useState("");
 	const { setSelectedConversation } = useConversation();
-	const { conversations } = useGetConversations();
+	const { conversations } = useConversationsContext();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -17,7 +18,7 @@ const SearchInput = () => {
 		}
 
 		const conversation = conversations.find((c) =>
-			c.fullname.toLowerCase().includes(search.toLowerCase())
+			c.friendId.fullname.toLowerCase().includes(search.toLowerCase())
 		);
 
 		if (conversation) {
@@ -26,18 +27,21 @@ const SearchInput = () => {
 		} else toast.error("No such user found!");
 	};
 	return (
-		<form onSubmit={handleSubmit} className="flex items-center gap-2">
-			<input
-				type="text"
-				placeholder="Search…"
-				className="input input-bordered rounded-full"
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-			/>
-			<button type="submit" className="btn btn-circle bg-sky-500 text-white">
-				<IoSearchSharp className="w-6 h-6 outline-none" />
-			</button>
-		</form>
+		<>
+			<form onSubmit={handleSubmit} className="flex items-center gap-2">
+				<input
+					type="text"
+					placeholder="Search…"
+					className="input input-bordered rounded-full"
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+				<button type="submit" className="btn btn-circle bg-sky-500 text-white">
+					<IoSearchSharp className="w-6 h-6 outline-none" />
+				</button>
+			</form>
+			<AddFriend />
+		</>
 	);
 };
 export default SearchInput;
