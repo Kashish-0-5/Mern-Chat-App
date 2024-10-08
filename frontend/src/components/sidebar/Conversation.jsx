@@ -6,7 +6,7 @@ const Conversation = ({ conversation, emoji, lastIdx }) => {
 
 	const isSelected = selectedConversation?._id === conversation._id;
 	const { onlineUsers } = useSocketContext();
-	const isOnline = onlineUsers.includes(conversation._id);
+	const isOnline = onlineUsers.includes(conversation.friendId._id);
 	return (
 		<>
 			<div
