@@ -6,10 +6,10 @@ export const signup = async (req, res) => {
 	try {
 		const { fullname, username, password, confirmPassword, gender } = req.body;
 
-		if (username.length < 3) {
+		if (username.length < 3 || username.length > 8) {
 			return res
 				.status(400)
-				.json({ error: "Username must be at least 3 characters long" });
+				.json({ error: "Username must be between 3 and 8 character" });
 		}
 
 		if (password !== confirmPassword) {
