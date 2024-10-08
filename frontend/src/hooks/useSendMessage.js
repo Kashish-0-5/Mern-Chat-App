@@ -10,7 +10,7 @@ const useSendMessage = () => {
 		setLoading(true);
 		try {
 			const response = await fetch(
-				`/api/messages/send/${selectedConversation._id}`,
+				`/api/messages/send/${selectedConversation.friendId._id}`,
 				{
 					method: "POST",
 					headers: {
