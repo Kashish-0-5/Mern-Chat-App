@@ -11,7 +11,7 @@ const useGetMessages = () => {
 			setLoading(true);
 			try {
 				const response = await fetch(
-					`/api/messages/${selectedConversation._id}`
+					`/api/messages/${selectedConversation.friendId._id}`
 				);
 				if (!response.ok) {
 					throw new Error(response.statusText);
@@ -25,7 +25,7 @@ const useGetMessages = () => {
 			}
 		};
 		if (selectedConversation?._id) getMessages();
-	}, [selectedConversation?._id, setMessages]);
+	}, [selectedConversation?._id, selectedConversation.friendId._id, setMessages]);
 
 	return { messages, loading };
 };
