@@ -24,7 +24,7 @@ const MessageContainer = () => {
 	}, [setSelectedConversation]);
 
 	return (
-		<div className="md:min-w-[450px] flex flex-col chat-bg">
+		<div className="h-screen w-screen flex flex-col chat-bg">
 			{!selectedConversation ?
 				<NoChatSelected />
 			:	<>
@@ -52,7 +52,7 @@ const MessageContainer = () => {
 
 			{/* Remove Friend */}
 			{modalOpen && (
-				<div className="fixed inset-0 bg-gray-700 bg-opacity-0 z-40">
+				<div className="fixed inset-0 bg-gray-700 bg-opacity-30 z-40">
 					<RemoveFriend setModalOpen={setModalOpen} toggleModal={toggleModal} />
 				</div>
 			)}
