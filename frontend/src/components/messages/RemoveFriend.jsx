@@ -23,12 +23,6 @@ function RemoveFriend({ setModalOpen, toggleModal }) {
 
 	return (
 		<>
-			{loading && (
-				<div className="fixed inset-0 flex items-center justify-center z-50">
-					<span className="loading loading-spinner mx-auto"></span>
-				</div>
-			)}
-
 			<div className="fixed inset-0 flex items-center justify-center z-50 ">
 				<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-75 text-center">
 					<p className="text-gray-300 text-2xl font-bold text-center mb-4 mr-2">
@@ -46,7 +40,9 @@ function RemoveFriend({ setModalOpen, toggleModal }) {
 					<button
 						className="btn bg-red-500 border-0 text-white"
 						onClick={handleDeleteFriend}>
-						Remove
+						{loading ?
+							<span className="loading loading-spinner"></span>
+						:	"Remove"}
 					</button>
 				</div>
 			</div>

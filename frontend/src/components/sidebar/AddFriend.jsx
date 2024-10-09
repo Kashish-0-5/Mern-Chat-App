@@ -11,8 +11,8 @@ const AddFriend = () => {
 		setModalOpen(!modalOpen);
 	};
 
-	const handleAddFriend = (username) => {
-		addFriend(username);
+	const handleAddFriend = async (username) => {
+		await addFriend(username);
 		setUsername("");
 		toggleModal();
 	};
@@ -29,9 +29,6 @@ const AddFriend = () => {
 			{modalOpen && (
 				<>
 					<div className="fixed inset-0 bg-gray-700 bg-opacity-50 z-40" />
-					{loading && (
-						<span className="loading loading-spinner mx-auto "></span>
-					)}
 					<div className="fixed inset-0 flex items-center justify-center z-50 ">
 						<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-75">
 							<button
@@ -51,12 +48,19 @@ const AddFriend = () => {
 								placeholder="Username"
 								value={username}
 								onChange={(e) => setUsername(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") {
+										handleAddFriend(username);
+									}
+								}}
 							/>
 
 							<button
 								className="btn bg-sky-500 border-0 text-white w-full"
 								onClick={() => handleAddFriend(username)}>
-								Add
+								{loading ?
+									<span className="loading loading-spinner"></span>
+								:	"Add"}
 							</button>
 						</div>
 					</div>
