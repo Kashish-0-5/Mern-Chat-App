@@ -36,9 +36,9 @@ const AddFriend = () => {
 			{/* Modal */}
 			{modalOpen && (
 				<>
-					<div className="fixed inset-0 bg-gray-700 bg-opacity-0 z-40" />
+					<div className="fixed inset-0 bg-gray-700 bg-opacity-30 z-40" />
 					<div className="fixed inset-0 flex items-center justify-center z-50 text-center">
-						<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-90">
+						<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-opacity-100">
 							<button
 								className="absolute right-2 top-2 text-black bg-white rounded-full w-8 h-8"
 								onClick={toggleModal}>

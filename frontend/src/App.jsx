@@ -9,7 +9,7 @@ function App() {
 	const { authUser } = useAuthContext();
 	return (
 		<>
-			<div className="p-4 flex h-screen items-center justify-center ">
+			<div>
 				<Routes>
 					<Route
 						exact
