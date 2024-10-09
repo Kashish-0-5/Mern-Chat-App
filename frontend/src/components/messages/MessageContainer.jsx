@@ -24,33 +24,35 @@ const MessageContainer = () => {
 	}, [setSelectedConversation]);
 
 	return (
-		<div className="md:min-w-[450px] flex flex-col">
+		<div className="md:min-w-[450px] flex flex-col chat-bg">
 			{!selectedConversation ?
 				<NoChatSelected />
 			:	<>
 					{/* Header */}
-					<div className="bg-slate-500 px-4 py-2 mb-2 flex justify-between items-center">
+					<div className="bg-[#316cbd] px-4 py-2 mb-2 flex justify-between items-center">
 						<div>
-							<span className="label-text">To:</span>{" "}
-							<span className="text-gray-900 font-bold">
+							<span className="label-text font-bold ">To:</span>{" "}
+							<span className="text-gray-100 font-bold">
 								{selectedConversation.friendId.username}
 							</span>
 						</div>
 						<button
-							className="btn-sm btn w-32 bg-red-500 hover:bg-red-600 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50 shadow-lg border-none text-white"
+							className="btn-sm btn w-32 bg-red-700 hover:bg-red-800 border-none text-white"
 							onClick={() => toggleModal()}>
 							Remove
 							<MdOutlineDeleteOutline className="text-white w-4 h-4" />
 						</button>
 					</div>
 					<Messages />
-					<MessageInput />
+					<MessageInput
+						selectedConversation={selectedConversation.friendId.username}
+					/>
 				</>
 			}
 
 			{/* Remove Friend */}
 			{modalOpen && (
-				<div className="fixed inset-0 bg-gray-700 bg-opacity-50 z-40">
+				<div className="fixed inset-0 bg-gray-700 bg-opacity-0 z-40">
 					<RemoveFriend setModalOpen={setModalOpen} toggleModal={toggleModal} />
 				</div>
 			)}
