@@ -12,6 +12,7 @@ function Message({ message }) {
 		fromMe ? authUser.profilePic : selectedConversation?.friendId.profilePic;
 	const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 	const shakeClass = message.shouldShake ? "shake" : "";
+
 	return (
 		<>
 			<div className={`chat ${chatClassName}`}>
