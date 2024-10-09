@@ -1,6 +1,7 @@
 import { RiUserAddLine } from "react-icons/ri";
 import { useState } from "react";
 import useAddFriend from "../../hooks/useAddFriend";
+import toast from "react-hot-toast";
 
 const AddFriend = () => {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -8,11 +9,18 @@ const AddFriend = () => {
 	const { addFriend, loading } = useAddFriend();
 
 	const toggleModal = () => {
+		setUsername("");
 		setModalOpen(!modalOpen);
 	};
 
-	const handleAddFriend = async (username) => {
-		await addFriend(username);
+	const handleAddFriend = (username) => {
+		if (!username) {
+			return toast.error("Please enter your friend's username");
+		}
+		if (username.length < 3) {
+			return toast.error("Search term must be at least 3 characters long");
+		}
+		addFriend(username);
 		setUsername("");
 		toggleModal();
 	};
