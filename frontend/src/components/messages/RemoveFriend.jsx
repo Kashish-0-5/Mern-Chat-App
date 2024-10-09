@@ -24,7 +24,7 @@ function RemoveFriend({ setModalOpen, toggleModal }) {
 	return (
 		<>
 			<div className="fixed inset-0 flex items-center justify-center z-50 ">
-				<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-75 text-center">
+				<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-90 text-center">
 					<p className="text-gray-300 text-2xl font-bold text-center mb-4 mr-2">
 						Are you sure you want to remove this friend?
 					</p>
