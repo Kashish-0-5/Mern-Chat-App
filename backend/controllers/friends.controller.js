@@ -1,5 +1,7 @@
 import Friend from "../models/friends.model.js";
 import User from "../models/user.model.js";
+import Conversation from "../models/conversation.model.js";
+import Message from "../models/message.model.js";
 
 export const getFriends = async (req, res) => {
 	try {
@@ -57,6 +59,46 @@ export const addFriend = async (req, res) => {
 		res.status(201).json({ message: "Friend added for both users" });
 	} catch (error) {
 		console.log("Error in addFriend controller: ", error.message);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};
+
+export const deleteFriend = async (req, res) => {
+	try {
+		const { friendId } = req.params;
+		const userId = req.user._id;
+
+		//Remove the friend relationships
+		const friend = await Friend.findOneAndDelete({ userId, friendId });
+
+		if (!friend) {
+			return res.status(404).json({ error: "Friend not found" });
+		}
+
+		const friendForFriend = await Friend.findOneAndDelete({
+			userId: friendId,
+			friendId: userId,
+		});
+
+		if (!friendForFriend) {
+			return res.status(404).json({ error: "Friend not found" });
+		}
+
+		//Find the conversation between the two users
+		const conversation = await Conversation.findOneAndDelete({
+			participants: { $all: [userId, friendId] },
+		});
+
+		if (conversation) {
+			// Delete all messages referenced in the conversation
+			await Message.deleteMany({ _id: { $in: conversation.messages } });
+		}
+
+		res.status(200).json({
+			message: "Friend Removed",
+		});
+	} catch (error) {
+		console.log("Error in deleteFriend controller: ", error.message);
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
