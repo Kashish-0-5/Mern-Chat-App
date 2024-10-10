@@ -28,7 +28,7 @@ const AddFriend = () => {
 	return (
 		<>
 			<button
-				className="btn bg-sky-500 text-white border-0 h-4 mt-3 w-full hover:bg-blue-500"
+				className="btn btn-sm bg-sky-500 text-white border-0 mb-[8px]"
 				onClick={() => toggleModal()}>
 				Add Friend <RiUserAddLine />
 			</button>
