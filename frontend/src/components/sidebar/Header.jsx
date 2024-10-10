@@ -6,7 +6,9 @@ function Header() {
 	return (
 		<>
 			<div className="flex items-center justify-between">
-				<div className="flex items-center gap-2 mb-2 rounded-md shadow-lg justify-start bg-[#3268ab] bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 py-2 px-2 w-fit cursor-pointer">
+				<div
+					className="flex items-center gap-2 mb-2 rounded-md shadow-lg justify-start bg-[#3268ab] bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 py-2 px-2 w-fit cursor-pointer tooltip tooltip-bottom"
+					data-tip="Profile">
 					<img
 						src={authUser.profilePic}
 						alt="profile pic"

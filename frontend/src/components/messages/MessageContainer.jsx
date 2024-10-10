@@ -6,11 +6,14 @@ import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
 import RemoveFriend from "./RemoveFriend";
 import MenuDropdown from "./MenuDropdown";
+import Notification from "./Notification";
+import ProfileFriend from "../profile/ProfileFriend";
 
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
 	const [modalOpen, setModalOpen] = useState(false);
 	const [userDropdown, setUserDropdown] = useState(false);
+	const [friendProfile, setFriendProfile] = useState(false);
 
 	const toggleModal = () => {
 		setModalOpen(!modalOpen);
@@ -26,6 +29,7 @@ const MessageContainer = () => {
 
 	return (
 		<div className="h-screen w-screen flex flex-col chat-bg">
+			<Notification />
 			{!selectedConversation ?
 				<NoChatSelected />
 			:	<>
@@ -41,6 +45,7 @@ const MessageContainer = () => {
 							userDropdown={userDropdown}
 							setUserDropdown={setUserDropdown}
 							toggleModal={toggleModal}
+							setFriendProfile={setFriendProfile}
 						/>
 					</div>
 					<Messages />
@@ -49,6 +54,13 @@ const MessageContainer = () => {
 					/>
 				</>
 			}
+
+			{/* Friend Profile */}
+			{friendProfile && (
+				<div className="fixed inset-0 bg-gray-700 bg-opacity-50 z-40">
+					<ProfileFriend setFriendProfile={setFriendProfile} />
+				</div>
+			)}
 
 			{/* Remove Friend */}
 			{modalOpen && (

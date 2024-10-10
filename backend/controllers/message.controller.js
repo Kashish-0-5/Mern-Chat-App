@@ -7,6 +7,8 @@ export const sendMessage = async (req, res) => {
 		const { message } = req.body;
 		const { id: receiverId } = req.params;
 		const senderId = req.user._id;
+		const senderName = req.user.username;
+		const senderProfilePic = req.user.profilePic;
 
 		let conversation = await Conversation.findOne({
 			participants: { $all: [senderId, receiverId] },
@@ -32,8 +34,15 @@ export const sendMessage = async (req, res) => {
 
 		const receiverSocketId = getReceiverSocketId(receiverId);
 		if (receiverSocketId) {
-			// io.to(<socket_id>).emit() used to send events to specific client
-			io.to(receiverSocketId).emit("newMessage", newMessage);
+			// Emitting the new message with sender's name and profile picture
+			io.to(receiverSocketId).emit("newMessage", {
+				message: newMessage.message,
+				senderId: newMessage.senderId,
+				receiverId: newMessage.receiverId,
+				senderName,
+				senderProfilePic,
+				createdAt: newMessage.createdAt,
+			});
 		}
 
 		res.status(201).json(newMessage);

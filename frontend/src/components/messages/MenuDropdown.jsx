@@ -6,6 +6,7 @@ export default function MenuDropdown({
 	userDropdown,
 	setUserDropdown,
 	toggleModal,
+	setFriendProfile,
 }) {
 	function toggleDropdown(e) {
 		e.stopPropagation();
@@ -27,7 +28,10 @@ export default function MenuDropdown({
 						onClick={(e) => e.stopPropagation()}
 						tabIndex={0}>
 						<li>
-							<button className="btn-sm btn w-full bg-sky-500 hover:bg-sky-600 border-none text-white my-2">
+							<button
+								className="btn-sm btn w-full bg-sky-500 hover:bg-sky-600 border-none text-white my-2"
+								to="/profile-friend"
+								onClick={() => setFriendProfile(true)}>
 								Friend Profile
 								<FiUser />
 							</button>
