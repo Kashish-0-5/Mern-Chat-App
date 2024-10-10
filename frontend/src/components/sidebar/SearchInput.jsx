@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-import AddFriend from "./AddFriend.jsx";
 import useConversation from "../../store/useConversation.js";
 import toast from "react-hot-toast";
 import { useConversationsContext } from "../../context/ConversationContext.jsx";
@@ -43,7 +42,6 @@ const SearchInput = () => {
 					<IoSearchSharp className="w-6 h-6 outline-none" />
 				</button>
 			</form>
-			<AddFriend />
 		</>
 	);
 };
