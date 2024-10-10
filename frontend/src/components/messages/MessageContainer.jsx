@@ -7,7 +7,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import RemoveFriend from "./RemoveFriend";
 import MenuDropdown from "./MenuDropdown";
 import Notification from "./Notification";
-import ProfileFriend from "../profile/ProfileFriend";
+import Profile from "../profile/Profile";
 
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
@@ -58,7 +58,7 @@ const MessageContainer = () => {
 			{/* Friend Profile */}
 			{friendProfile && (
 				<div className="fixed inset-0 bg-gray-700 bg-opacity-50 z-40">
-					<ProfileFriend setFriendProfile={setFriendProfile} />
+					<Profile setFriendProfile={setFriendProfile} profile="friend" />
 				</div>
 			)}
 
