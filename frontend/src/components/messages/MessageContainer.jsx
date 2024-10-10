@@ -4,12 +4,13 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
-import { MdOutlineDeleteOutline } from "react-icons/md";
 import RemoveFriend from "./RemoveFriend";
+import MenuDropdown from "./MenuDropdown";
 
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
 	const [modalOpen, setModalOpen] = useState(false);
+	const [userDropdown, setUserDropdown] = useState(false);
 
 	const toggleModal = () => {
 		setModalOpen(!modalOpen);
@@ -36,12 +37,11 @@ const MessageContainer = () => {
 								{selectedConversation.friendId.username}
 							</span>
 						</div>
-						<button
-							className="btn-sm btn w-32 bg-red-700 hover:bg-red-800 border-none text-white"
-							onClick={() => toggleModal()}>
-							Remove
-							<MdOutlineDeleteOutline className="text-white w-4 h-4" />
-						</button>
+						<MenuDropdown
+							userDropdown={userDropdown}
+							setUserDropdown={setUserDropdown}
+							toggleModal={toggleModal}
+						/>
 					</div>
 					<Messages />
 					<MessageInput
