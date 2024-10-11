@@ -22,10 +22,17 @@ function Message({ message }) {
 					</div>
 				</div>
 				<div
-					className={`chat-bubble text-white  ${bubbleBgColor} ${shakeClass}`}>
+					className={`chat-bubble text-white  ${bubbleBgColor} ${shakeClass}`}
+					style={{
+						maxWidth: "75%",
+						wordWrap: "break-word",
+						overflow: "hidden",
+						whiteSpace: "normal",
+						padding: "10px",
+					}}>
 					{message.message}
 				</div>
-				<div className="chat-footer opacity-50 text-xs flex gap-1 items-center ">
+				<div className="chat-footer opacity-50 text-xs flex gap-1 items-center font-bold">
 					{formattedTime}
 				</div>
 			</div>

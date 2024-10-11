@@ -16,7 +16,7 @@ export default function MenuDropdown({
 		<>
 			<div className="dropdown">
 				<div
-					className="m-1"
+					className="m-1 w-8 text-center"
 					tabIndex={0}
 					role="button"
 					onClick={(e) => toggleDropdown(e)}>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSocketContext } from "../context/SocketContext.jsx";
 import useConversation from "../store/useConversation";
 
@@ -6,7 +6,6 @@ const useGetNotifications = () => {
 	const { socket } = useSocketContext();
 	const { selectedConversation } = useConversation();
 	const [notifications, setNotifications] = useState([]);
-	const timersRef = useRef({});
 
 	useEffect(() => {
 		const handleNewMessage = (newMessage) => {
@@ -20,16 +19,7 @@ const useGetNotifications = () => {
 					);
 
 					if (existingNotification) {
-						// Clear existing timer
-						if (timersRef.current[newMessage.senderId]) {
-							clearTimeout(timersRef.current[newMessage.senderId]);
-						}
-
-						// Set new timer
-						timersRef.current[newMessage.senderId] = setTimeout(() => {
-							closeNotification(newMessage.senderId);
-						}, 3000);
-
+						// If a notification from this sender already exists, increment the count
 						return prevNotifications.map((notif) =>
 							notif.senderId === newMessage.senderId ?
 								{
@@ -41,11 +31,7 @@ const useGetNotifications = () => {
 							:	notif
 						);
 					} else {
-						// Set timer for new notification
-						timersRef.current[newMessage.senderId] = setTimeout(() => {
-							closeNotification(newMessage.senderId);
-						}, 3000);
-
+						// Add a new notification for a new sender
 						return [
 							{
 								senderId: newMessage.senderId,
@@ -66,11 +52,10 @@ const useGetNotifications = () => {
 
 		return () => {
 			socket?.off("newMessage", handleNewMessage);
-			// Clear all timers on cleanup
-			Object.values(timersRef.current).forEach(clearTimeout);
 		};
 	}, [socket, selectedConversation]);
 
+	// Reset the notification count to 0 when opening a chat with a specific user
 	useEffect(() => {
 		if (selectedConversation) {
 			setNotifications((prevNotifications) =>
@@ -80,21 +65,16 @@ const useGetNotifications = () => {
 					:	notif
 				)
 			);
-			closeNotification(selectedConversation.friendId._id);
 		}
 	}, [selectedConversation]);
 
+	// Function to close the notification but keep the data
 	const closeNotification = (senderId) => {
 		setNotifications((prevNotifications) =>
 			prevNotifications.map((notif) =>
 				notif.senderId === senderId ? { ...notif, closed: true } : notif
 			)
 		);
-		// Clear the timer when closing the notification
-		if (timersRef.current[senderId]) {
-			clearTimeout(timersRef.current[senderId]);
-			delete timersRef.current[senderId];
-		}
 	};
 
 	return { notifications, closeNotification };

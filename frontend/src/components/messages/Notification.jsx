@@ -1,9 +1,23 @@
 import useGetNotifications from "../../hooks/useGetNotifications.js";
 import truncateMessage from "../../utils/truncateText.js";
 import { extractTime } from "../../utils/extractTime";
+import { useEffect } from "react";
 
 export default function Notification() {
 	const { notifications, closeNotification } = useGetNotifications();
+
+	useEffect(() => {
+		const timeouts = notifications.map((notification) =>
+			setTimeout(() => {
+				closeNotification(notification.senderId);
+			}, 3000)
+		);
+
+		// Cleanup timeouts on unmount or when notifications change
+		return () => {
+			timeouts.forEach((timeout) => clearTimeout(timeout));
+		};
+	}, [notifications, closeNotification]);
 
 	if (notifications.length === 0) return null;
 
@@ -11,13 +25,14 @@ export default function Notification() {
 		<div className="toast toast-top toast-end z-[999]">
 			{/* Display notifications for each sender */}
 			{notifications
-				.filter((notification) => !notification.closed) // Only show if not closed
+				.filter((notification) => !notification.closed)
 				.map((notification) => {
-					const latestMessage = notification.messages[0]; // Get the latest message
+					const latestMessage =
+						notification.messages[notification.messages.length - 1]; // Get the most recent message
 					const message = truncateMessage(latestMessage.message, 20);
 					const senderName = notification.senderName || "Unknown";
 					const senderProfile = notification.senderProfilePic || "";
-					const time = extractTime(latestMessage.createdAt);
+					const time = extractTime(latestMessage.createdAt); // Ensure you extract time from the latest message
 
 					return (
 						<div
