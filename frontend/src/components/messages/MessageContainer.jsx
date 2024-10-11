@@ -15,6 +15,7 @@ const MessageContainer = () => {
 	const [userDropdown, setUserDropdown] = useState(false);
 	const [friendProfile, setFriendProfile] = useState(false);
 
+
 	const toggleModal = () => {
 		setModalOpen(!modalOpen);
 	};
