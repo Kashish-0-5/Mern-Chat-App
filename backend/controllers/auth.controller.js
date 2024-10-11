@@ -49,6 +49,8 @@ export const signup = async (req, res) => {
 				username: newUser.username,
 				fullname: newUser.fullname,
 				profilePic: newUser.profilePic,
+				createdAt: newUser.createdAt,
+				updatedAt: newUser.updatedAt,
 			});
 		} else {
 			res.status(400).json({ error: "Invalid User Data" });
@@ -75,6 +77,8 @@ export const login = async (req, res) => {
 					username: user.username,
 					fullname: user.fullname,
 					profilePic: user.profilePic,
+					createdAt: user.createdAt,
+					updatedAt: user.updatedAt,
 				});
 			} else {
 				res.status(400).json({ error: "Invalid Password" });

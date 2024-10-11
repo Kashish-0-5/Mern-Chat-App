@@ -9,7 +9,7 @@ export const getFriends = async (req, res) => {
 
 		const friends = await Friend.find({ userId }).populate(
 			"friendId",
-			"username profilePic fullname"
+			"username profilePic fullname createdAt"
 		);
 
 		res.status(200).json(friends);

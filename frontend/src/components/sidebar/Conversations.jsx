@@ -4,6 +4,7 @@ import { useConversationsContext } from "../../context/ConversationContext";
 
 const Conversations = () => {
 	const { conversations, loading } = useConversationsContext();
+
 	return (
 		<>
 			{!conversations.length && <p className="text-center">No friends yet</p>}
