@@ -14,8 +14,11 @@ function Header() {
 				</div>
 			)}
 			<div className="flex items-center justify-between">
+				<div className="h-full flex gap-2 items-center">
+					<AddFriend />
+				</div>
 				<div
-					className="flex items-center gap-2 mb-2 rounded-md justify-start py-2 px-2 w-fit cursor-pointer tooltip tooltip-bottom"
+					className="flex items-center gap-2 mb-2 rounded-md justify-start py-2 px-2 w-fit hover:bg-[#3268ab] hover:shadow-lg cursor-pointer tooltip tooltip-bottom hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-lg hover:bg-opacity-30"
 					data-tip="Profile"
 					onClick={() => setUserProfile(true)}>
 					<img
@@ -27,9 +30,6 @@ function Header() {
 					<p className="text-md font-bold text-gray-300 mr-2">
 						{authUser.username}
 					</p>
-				</div>
-				<div className="h-full flex gap-2 items-center">
-					<AddFriend />
 				</div>
 			</div>
 		</>
