@@ -28,9 +28,10 @@ const AddFriend = () => {
 	return (
 		<>
 			<button
-				className="btn btn-sm bg-sky-500 text-white border-0 mb-[8px]"
+				className="btn btn-sm bg-sky-500 text-white border-0 mb-[8px] tooltip tooltip-bottom"
+				data-tip="Add Friend"
 				onClick={() => toggleModal()}>
-				Add Friend <RiUserAddLine />
+				<RiUserAddLine />
 			</button>
 
 			{/* Modal */}
