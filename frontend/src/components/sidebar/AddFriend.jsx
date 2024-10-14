@@ -28,9 +28,14 @@ const AddFriend = () => {
 	return (
 		<>
 			<button
-				className="btn btn-sm bg-sky-500 text-white border-0 mb-[8px]"
-				onClick={() => toggleModal()}>
-				Add Friend <RiUserAddLine />
+				className="absolute btn btn-sm bg-sky-500 text-white border-0 mb-[8px] flex items-center transition-all duration-300 ease-in-out w-12 hover:w-32 group overflow-hidden h-10"
+				onClick={toggleModal}>
+				<div className="flex items-center justify-center w-full group-hover:justify-start">
+					<RiUserAddLine className="flex-shrink-0" />
+					<span className="whitespace-nowrap ml-2 absolute left-full group-hover:static transition-all duration-300 group-hover:opacity-100 opacity-0">
+						Add Friend
+					</span>
+				</div>
 			</button>
 
 			{/* Modal */}
@@ -38,7 +43,7 @@ const AddFriend = () => {
 				<>
 					<div className="fixed inset-0 bg-gray-700 bg-opacity-30 z-40" />
 					<div className="fixed inset-0 flex items-center justify-center z-50 text-center">
-						<div className=" w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-opacity-100">
+						<div className="w-full max-w-md p-6 rounded-lg shadow-lg relative bg-gray-800 bg-opacity-100">
 							<button
 								className="absolute right-2 top-2 text-black bg-white rounded-full w-8 h-8"
 								onClick={toggleModal}>
